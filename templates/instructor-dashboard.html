@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructor Dashboard - EduLearn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+<body id="page-top">
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url_for('instructor_dashboard')}}">
+        <div class="sidebar-brand-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">EduLearn</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link active" href="{{url_for('instructor_dashboard')}}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Teaching
+      </div>
+
+      <!-- Nav Item - Classes -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('instructor_classes')}}">
+          <i class="fas fa-fw fa-chalkboard"></i>
+          <span>My Classes</span>
+        </a>
+      </li>
+
+      <!-- Nav Item - Assignments -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('instructor_assignments')}}">
+          <i class="fas fa-fw fa-tasks"></i>
+          <span>Assignments</span>
+        </a>
+      </li>
+
+      <!-- Nav Item - Grades -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('instructor_grades')}}">
+          <i class="fas fa-fw fa-chart-bar"></i>
+          <span>Grades</span>
+        </a>
+      </li>
+      <!-- Nav Item - Notes -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('instructor_notes')}}">
+          <i class="fa fa-notepad"></i>
+          <span>Notes</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Communication
+      </div>
+
+      <!-- Nav Item - Announcements -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('announcements')}}">
+          <i class="fas fa-fw fa-bullhorn"></i>
+          <span>Announcements</span>
+        </a>
+      </li>
+
+      <!-- Nav Item - Discussions -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('discussions')}}">
+          <i class="fas fa-fw fa-comments"></i>
+          <span>Discussions</span>
+        </a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Resources
+      </div>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle">
+          <i class="fas fa-angle-left"></i>
+        </button>
+      </div>
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Main Content -->
+      <div id="content">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2023</div>
+                    <span class="font-weight-bold">New assignment submissions to review!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-user text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 10, 2023</div>
+                    5 new students enrolled in your class
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 8, 2023</div>
+                    Assignment deadline approaching
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://via.placeholder.com/60" alt="User Avatar">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I have a question about the assignment.</div>
+                    <div class="small text-gray-500">Emily Wilson · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://via.placeholder.com/60" alt="User Avatar">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Can you provide more details about the project?</div>
+                    <div class="small text-gray-500">Jae Smith · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://via.placeholder.com/60" alt="User Avatar">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I submitted my assignment but I'm not sure if it went through.</div>
+                    <div class="small text-gray-500">Morgan Lee · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Dr. {{name}}</span>
+                
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{url_for('logout')}}" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Instructor Dashboard</h1>
+            
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+							<span class="fa fa-plus-circle "></span> Create New Class
+						</button>
+
+          <!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form method="POST" action="/create_course"> <!-- Form to submit data -->
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitle">Create Course</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <div class="mb-3">
+                  <label for="class_name" class="form-label" style="font-weight: bold; color: #333;">Class Name</label>
+                  <input type="text" class="form-control" id="class_name" name="class_name" required 
+                      style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+                      placeholder="Enter your course name here">
+                  
+                  <label for="class_code" class="form-label" style="font-weight: bold; color: #333;">Class Code</label>
+                  <input type="text" class="form-control" id="class_code" name="class_code" required 
+                      style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+                      placeholder="Make a random 4-6 character code here">
+                  
+                  <label for="description" class="form-label" style="font-weight: bold; color: #333;">Description</label>
+                  <textarea class="form-control" id="description" name="description" rows="3" 
+                      style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+                      placeholder="Brief course summary"></textarea>
+                  
+                  <label for="start_date" class="form-label" style="font-weight: bold; color: #333;">Start Date</label>
+                  <input type="date" class="form-control" id="start_date" name="start_date" required>
+                  
+                  <label for="end_date" class="form-label" style="font-weight: bold; color: #333;">End Date</label>
+                  <input type="date" class="form-control" id="end_date" name="end_date" required>
+                  
+                  <label for="schedule_day" class="form-label" style="font-weight: bold; color: #333;">Schedule Days</label>
+                  <input type="text" class="form-control" id="schedule_day" name="schedule_day" required
+                      style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+                      placeholder="e.g., Monday, Wednesday">
+                  
+                  <label for="start_time" class="form-label" style="font-weight: bold; color: #333;">Start Time</label>
+                  <input type="time" class="form-control" id="start_time" name="start_time" required>
+                  
+                  <label for="end_time" class="form-label" style="font-weight: bold; color: #333;">End Time</label>
+                  <input type="time" class="form-control" id="end_time" name="end_time" required>
+                  
+                  <label for="max_students" class="form-label" style="font-weight: bold; color: #333;">Max Students</label>
+                  <input type="number" class="form-control" id="max_students" name="max_students" min="1" required>
+                  
+                  <label for="prerequisites" class="form-label" style="font-weight: bold; color: #333;">Prerequisites</label>
+                  <textarea class="form-control" id="prerequisites" name="prerequisites" rows="2"
+                      style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+                      placeholder="Enter prerequisites if any"></textarea>
+              </div>
+              
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<!--End Of Modal Class-->
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Total Students Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Students</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{total_students}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Classes Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Classes</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{active_classes}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-chalkboard fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Assignments Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pending Grading</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">18</div>
+                        </div>
+                        <div class="col">
+                          <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upcoming Deadlines Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Upcoming Deadlines</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{upcoming_deadlines}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <!-- My Classes -->
+            <div class=" mb-4">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">My Classes</h6>
+                  <a href="{{url_for('instructor_classes')}}" class="btn btn-sm btn-primary">View All</a>
+                </div>
+
+                <div class="card-body">
+                  <div class="row">
+                      {% if instructor_classes %}
+                          {% for course, student_count in instructor_classes %}
+                          <div class="col-md-6 mb-4">
+                              <div class="card class-card h-100">
+                                  <div class="card-img-top {% if loop.index == 1 %}bg-primary{% else %}bg-success{% endif %}"></div>
+                                  
+                                  <div class="card-body">
+                                      <h5 class="card-title">{{ course.name }}</h5>
+                                      <p class="card-text text-muted">{{ course.code }} • {{ student_count }} Students</p>
+                                      <div class="d-flex justify-content-between">
+                                          <a href="{{ url_for('instructor_classes')}}" class="btn btn-sm btn-outline-primary">View</a>
+                                          <span class="badge bg-success">Active</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          {% endfor %}
+                      {% else %}
+                          <p class="text-muted">No classes available.</p>
+                      {% endif %}
+                  </div>
+              </div>
+              
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Submissions -->
+            <!-- Recent Submissions -->
+            <div class=" mb-4">
+              <div class="card shadow mb-4">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Recent Submissions</h6>
+                      <a href="{{ url_for('instructor_assignments') }}" class="btn btn-sm btn-primary">View All</a>
+                  </div>
+              <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>Student</th>
+                          <th>Assignment</th>
+                          <th>Class</th>
+                          <th>Date</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% if recent_submissions %}
+                          {% for submission, student_name, assignment_title, class_name, submitted_on in recent_submissions %}
+                          <tr>
+                              <td>{{ student_name }}</td>
+                              <td>{{ assignment_title }}</td>
+                              <td>{{ class_name }}</td>
+                              <td>{{ submitted_on.strftime('%b %d, %Y') }}</td>
+                              
+                          </tr>
+                          {% endfor %}
+                      {% else %}
+                          <tr>
+                              <td colspan="5" class="text-muted text-center">No recent submissions.</td>
+                          </tr>
+                      {% endif %}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <!-- Announcements -->
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Recent Announcements</h6>
+                  <a href="instructor-announcements.html" class="btn btn-sm btn-primary">Create New</a>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3 pb-3 border-bottom">
+                    <h5>Final Exam Schedule</h5>
+                    <p class="text-muted small">Posted on Dec 10, 2023 • CS101</p>
+                    <p>The final exam will be held on December 20th from 9:00 AM to 12:00 PM in Room 302.</p>
+                  </div>
+                  <div class="mb-3 pb-3 border-bottom">
+                    <h5>Project Deadline Extended</h5>
+                    <p class="text-muted small">Posted on Dec 8, 2023 • CS201</p>
+                    <p>The deadline for the final project has been extended to December 15th.</p>
+                  </div>
+                  <div>
+                    <h5>Office Hours Cancelled</h5>
+                    <p class="text-muted small">Posted on Dec 5, 2023 • All Classes</p>
+                    <p>Office hours for this Friday are cancelled due to the faculty meeting.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calendar -->
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Upcoming Events</h6>
+                </div>
+                <div class="card-body">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assignment Due: Project Proposal</h5>
+                        <small>Today</small>
+                      </div>
+                      <p class="mb-1">CS101 • 11:59 PM</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Office Hours</h5>
+                        <small>Tomorrow</small>
+                      </div>
+                      <p class="mb-1">2:00 PM - 4:00 PM • Room 201</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Assignment Due: Final Project</h5>
+                        <small>Dec 15</small>
+                      </div>
+                      <p class="mb-1">CS201 • 11:59 PM</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Final Exam: CS101</h5>
+                        <small>Dec 20</small>
+                      </div>
+                      <p class="mb-1">9:00 AM - 12:00 PM • Room 302</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; EduLearn 2025</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="{{url_for('logout')}}">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

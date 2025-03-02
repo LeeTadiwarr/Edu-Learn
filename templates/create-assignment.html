@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Assignment - EduLearn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Create New Assignment</h6>
+          </div>
+          <div class="card-body">
+            <form id="createAssignmentForm">
+              <div class="mb-3">
+                <label for="assignmentTitle" class="form-label">Assignment Title</label>
+                <input type="text" class="form-control" id="assignmentTitle" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="class" class="form-label">Class</label>
+                <select class="form-select" id="class" required>
+                  <option value="">Select Class</option>
+                  <option value="cs101">CS101 - Introduction to Computer Science</option>
+                  <option value="cs201">CS201 - Data Structures & Algorithms</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="description" class="form-label">Instructions</label>
+                <textarea class="form-control" id="description" rows="5" required></textarea>
+              </div>
+              
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="dueDate" class="form-label">Due Date</label>
+                  <input type="date" class="form-control" id="dueDate" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="dueTime" class="form-label">Due Time</label>
+                  <input type="time" class="form-control" id="dueTime" required>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="points" class="form-label">Total Points</label>
+                <input type="number" class="form-control" id="points" min="0" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="assignmentType" class="form-label">Assignment Type</label>
+                <select class="form-select" id="assignmentType" required>
+                  <option value="homework">Homework</option>
+                  <option value="quiz">Quiz</option>
+                  <option value="project">Project</option>
+                  <option value="exam">Exam</option>
+                </select>
+              </div>
+              
+              <div class="mb-3">
+                <label for="attachments" class="form-label">Attachments</label>
+                <input type="file" class="form-control" id="attachments" multiple>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Submission Type</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="submissionType" id="fileSubmission" value="file" checked>
+                  <label class="form-check-label" for="fileSubmission">
+                    File Upload
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="submissionType" id="textSubmission" value="text">
+                  <label class="form-check-label" for="textSubmission">
+                    Text Entry
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="submissionType" id="bothSubmission" value="both">
+                  <label class="form-check-label" for="bothSubmission">
+                    Both
+                  </label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Assignment Settings</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="allowLateSubmissions">
+                  <label class="form-check-label" for="allowLateSubmissions">
+                    Allow Late Submissions
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="enablePeerReview">
+                  <label class="form-check-label" for="enablePeerReview">
+                    Enable Peer Review
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="showRubric">
+                  <label class="form-check-label" for="showRubric">
+                    Show Rubric to Students
+                  </label>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="rubric" class="form-label">Rubric</label>
+                <div id="rubricItems">
+                  <div class="rubric-item mb-2">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Criterion">
+                      <input type="number" class="form-control" placeholder="Points" min="0">
+                      <button type="button" class="btn btn-outline-danger" onclick="removeRubricItem(this)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addRubricItem()">
+                  <i class="fas fa-plus"></i> Add Criterion
+                </button>
+              </div>
+              
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Create Assignment</button>
+                <a href="instructor-dashboard.html" class="btn btn-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

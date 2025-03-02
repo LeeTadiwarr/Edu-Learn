@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources - EduLearn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="row">
+      <!-- Resource Categories Sidebar -->
+      <div class="col-lg-3">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
+          </div>
+          <div class="card-body">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+              <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#lectures" type="button">
+                <i class="fas fa-book-reader me-2"></i> Lecture Notes
+              </button>
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#assignments" type="button">
+                <i class="fas fa-tasks me-2"></i> Assignments
+              </button>
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#readings" type="button">
+                <i class="fas fa-book me-2"></i> Required Readings
+              </button>
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#videos" type="button">
+                <i class="fas fa-video me-2"></i> Video Tutorials
+              </button>
+              <button class="nav-link" data-bs-toggle="pill" data-bs-target="#code" type="button">
+                <i class="fas fa-code me-2"></i> Code Examples
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Resource -->
+        <div class="card shadow">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Upload Resource</h6>
+          </div>
+          <div class="card-body">
+            <form id="resourceUploadForm">
+              <div class="mb-3">
+                <label for="resourceTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="resourceTitle" required>
+              </div>
+              <div class="mb-3">
+                <label for="resourceCategory" class="form-label">Category</label>
+                <select class="form-select" id="resourceCategory" required>
+                  <option value="lectures">Lecture Notes</option>
+                  <option value="assignments">Assignments</option>
+                  <option value="readings">Required Readings</option>
+                  <option value="videos">Video Tutorials</option>
+                  <option value="code">Code Examples</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="resourceFile" class="form-label">File</label>
+                <input type="file" class="form-control" id="resourceFile" required>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Upload</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resource Content -->
+      <div class="col-lg-9">
+        <div class="card shadow">
+          <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Resources</h6>
+            <div class="input-group w-50">
+              <input type="text" class="form-control" placeholder="Search resources...">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <!-- Lecture Notes -->
+              <div class="tab-pane fade show active" id="lectures">
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Introduction to Programming Concepts</h5>
+                      <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Week 1 lecture notes covering basic programming concepts and syntax.</p>
+                    <small class="text-muted">
+                      <i class="fas fa-file-pdf me-2"></i>PDF • 2.3 MB
+                    </small>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Control Structures and Loops</h5>
+                      <small class="text-muted">5 days ago</small>
+                    </div>
+                    <p class="mb-1">Week 2 lecture notes on if statements, loops, and control flow.</p>
+                    <small class="text-muted">
+                      <i class="fas fa-file-pdf me-2"></i>PDF • 1.8 MB
+                    </small>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Assignments -->
+              <div class="tab-pane fade" id="assignments">
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Programming Exercise 1</h5>
+                      <small class="text-muted">Due in 2 days</small>
+                    </div>
+                    <p class="mb-1">Practice exercises on basic programming concepts.</p>
+                    <small class="text-muted">
+                      <i class="fas fa-file-word me-2"></i>DOCX • 500 KB
+                    </small>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Required Readings -->
+              <div class="tab-pane fade" id="readings">
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Introduction to Algorithms</h5>
+                      <small class="text-muted">Chapter 1-3</small>
+                    </div>
+                    <p class="mb-1">Required reading for Week 1: Fundamentals of Algorithm Design</p>
+                    <small class="text-muted">
+                      <i class="fas fa-file-pdf me-2"></i>PDF • 5.1 MB
+                    </small>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Video Tutorials -->
+              <div class="tab-pane fade" id="videos">
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="card">
+                      <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Video thumbnail">
+                      <div class="card-body">
+                        <h5 class="card-title">Getting Started with Python</h5>
+                        <p class="card-text">Learn the basics of Python programming language.</p>
+                        <small class="text-muted">
+                          <i class="fas fa-clock me-2"></i>15:30 minutes
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Code Examples -->
+              <div class="tab-pane fade" id="code">
+                <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Basic Array Operations</h5>
+                      <small class="text-muted">Python</small>
+                    </div>
+                    <p class="mb-1">Example code demonstrating array operations in Python.</p>
+                    <small class="text-muted">
+                      <i class="fas fa-file-code me-2"></i>PY • 10 KB
+                    </small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

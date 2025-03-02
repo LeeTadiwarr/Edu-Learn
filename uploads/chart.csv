@@ -1,0 +1,7 @@
+# gantt,Date Format: YYYY-MM-DD
+"Task","Start Date","End Date","Dependencies"
+"Requirements Gathering","2025-02-01","2025-02-06",""
+"Design","2025-02-06","2025-02-16","Requirements Gathering"
+"Development","2025-02-16","2025-03-03","Design"
+"Testing","2025-03-03","2025-03-10","Development"
+"Deployment","2025-03-10","2025-03-13","Testing"

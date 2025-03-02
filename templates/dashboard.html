@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - EduLearn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', filename='globals.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header p-3">
+        <h3 class="text-white mb-0">EduLearn</h3>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{url_for('student_dashboard')}}">
+            <i class="fas fa-home"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('courses')}}">
+            <i class="fas fa-book"></i>
+            Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('assignments')}}">
+            <i class="fas fa-tasks"></i>
+            Assignments
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('grades')}}">
+            <i class="fas fa-chart-bar"></i>
+            Grades
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('calendar')}}">
+            <i class="fas fa-calendar"></i>
+            Calendar
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="content">
+      <!-- Top Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+        <div class="container-fluid">
+          <button id="sidebarToggle" class="btn">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button id="sidebarToggleMobile" class="btn d-lg-none">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="ms-auto d-flex align-items-center">
+            <button id="darkModeToggle" class="btn me-2">
+              <i class="fas fa-moon"></i>
+            </button>
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                <i class="fas fa-user"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{url_for('logout')}}">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1 class="h3">{{name}}'s Dashboard</h1>
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+							<span class="fa fa-plus-circle "></span> Join Course
+						</button>
+          <!-- Modal -->
+						<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form method="POST" action="/join_course"> <!-- Form to submit data -->
+
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalTitle">Join Course</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+												
+											</button>
+										</div>
+										
+										<div class="mb-3">
+											<label for="note" class="form-label" style="font-weight: bold; color: #333;">Class Code</label>
+											<input type="text" class="form-control" id="class_code" name="class_code" required 
+												style="border: 2px solid #007bff; background-color: #b9b9b9; padding: 10px; border-radius: 5px; outline: none; transition: 0.3s;"
+												placeholder="Enter your course code here" required>
+										</div>
+                    <div>
+                      <h5> To sign in with a class code:</h5>
+                      <li>
+                          "Use an authorized account"
+                      </li>
+                      <li>
+                        "Use a class code with 5-7 letters or numbers, and no spaces or symbols"                        
+                      </li>
+                    </div>
+										
+										
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Join</button>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+						<!--End Of Modal Class-->
+
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                      Courses
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{registered_courses}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-book fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                      Assignments
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{assignment_count}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-tasks fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                      Progress
+                    </div>
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">75%</div>
+                      </div>
+                      <div class="col">
+                        <div class="progress progress-sm mr-2">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 75%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                      Due Soon
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{upcoming_assignments}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card mb-4">
+              <div class="card-header">
+                Recent Courses
+              </div>
+              
+              <div class="card-body">
+                <div class="list-group">
+                  
+                  {% for course in registered_classes %}
+                  <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                      
+                      <h5 class="mb-1">Name: {{course.name}}</h5>
+                    </div>
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">Start Date: {{course.start_date}}</h5>
+                    </div>
+                    
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Upcoming Deadlines
+                </div>
+                <div class="card-body">
+                    {% if upcoming_assignments %}
+                        <div class="list-group">
+                            {% for assignment in upcoming_assignments %}
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ assignment.title }}</h5>
+                                        {% set days_left = (assignment.due_date - now().date()).days %}
+                                        <small class="{% if days_left <= 1 %}text-danger{% else %}text-muted{% endif %}">
+                                            Due {% if days_left == 0 %}Today{% elif days_left == 1 %}Tomorrow{% else %}in {{ days_left }} days{% endif %}
+                                        </small>
+                                    </div>
+                                    <p class="mb-1">{{ assignment.classroom.name }}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No upcoming assignments.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+                
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
