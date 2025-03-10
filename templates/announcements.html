@@ -12,9 +12,9 @@
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="sidebar">
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url_for('instructor_dashboard')}}">
+      <a class="sidebar-header p-3" href="{{url_for('instructor_dashboard')}}">
         <div class="sidebar-brand-icon">
           <i class="fas fa-graduation-cap"></i>
         </div>
@@ -25,7 +25,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{url_for('instructor_dashboard')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
@@ -42,7 +42,7 @@
 
       <!-- Nav Item - Classes -->
       <li class="nav-item">
-        <a class="nav-link active" href="{{url_for('instructor_classes')}}">
+        <a class="nav-link" href="{{url_for('instructor_classes')}}">
           <i class="fas fa-fw fa-chalkboard"></i>
           <span>My Classes</span>
         </a>
@@ -74,7 +74,7 @@
 
       <!-- Nav Item - Announcements -->
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('announcements')}}">
+        <a class="nav-link active" href="{{url_for('announcements')}}">
           <i class="fas fa-fw fa-bullhorn"></i>
           <span>Announcements</span>
         </a>

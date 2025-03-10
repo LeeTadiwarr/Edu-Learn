@@ -11,9 +11,9 @@
 <body>
   <div class="wrapper">
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="sidebar">
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url_for('instructor_dashboard')}}">
+      <a class="sidebar-header p-3" href="{{url_for('instructor_dashboard')}}">
         <div class="sidebar-brand-icon">
           <i class="fas fa-graduation-cap"></i>
         </div>
@@ -41,7 +41,7 @@
 
       <!-- Nav Item - Classes -->
       <li class="nav-item">
-        <a class="nav-link active" href="{{url_for('instructor_classes')}}">
+        <a class="nav-link " href="{{url_for('instructor_classes')}}">
           <i class="fas fa-fw fa-chalkboard"></i>
           <span>My Classes</span>
         </a>
@@ -81,7 +81,7 @@
 
       <!-- Nav Item - Discussions -->
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('discussions')}}">
+        <a class="nav-link active" href="{{url_for('discussions')}}">
           <i class="fas fa-fw fa-comments"></i>
           <span>Discussions</span>
         </a>

@@ -8,8 +8,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{url_for('static', filename='globals.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+  
 </head>
 <body>
+  <style>
+    
+  </style>
   <div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
@@ -33,6 +37,12 @@
           <a class="nav-link" href="{{url_for('assignments')}}">
             <i class="fas fa-tasks"></i>
             Assignments
+          </a>
+        </li>
+        <li class="nav-item" active>
+          <a class="nav-link" href="{{url_for('student_notes')}}">
+            <i class="fas fa-sticky-note"></i>
+            Notes
           </a>
         </li>
         <li class="nav-item">

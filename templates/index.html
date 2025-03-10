@@ -18,9 +18,26 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                    <li class="nav-item"><a class="btn btn-primary" href="/signup">Sign Up</a></li>
+                    
+                    <!-- Updated Login Button -->
+                    <li class="nav-item">
+                        <a href="/login" class="cta">
+                            <span class="span">Login</span>
+                            <span class="second">
+                                <svg width="50px" height="20px" viewBox="0 0 66 43" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <path class="one" d="M40.154 3.895L43.976 0.139C44.171-0.052 44.483-0.052 44.677 0.139L65.692 20.785C66.086 21.172 66.091 21.805 65.704 22.199L44.677 42.861C44.483 43.052 44.171 43.052 43.976 42.861L40.154 39.107C39.958 38.913 39.955 38.597 40.148 38.4L56.994 21.857C57.191 21.663 57.194 21.347 57 21.15L40.154 4.608C39.957 4.415 39.955 4.098 40.148 3.901C40.15 3.899 40.152 3.897 40.154 3.895Z" fill="#FFFFFF"></path>
+                                        <path class="two" d="M20.154 3.895L23.976 0.139C24.171-0.052 24.483-0.052 24.677 0.139L45.692 20.785C46.086 21.172 46.091 21.805 45.704 22.199L24.677 42.861C24.483 43.052 24.171 43.052 23.976 42.861L20.154 39.107C19.958 38.913 19.955 38.597 20.148 38.4L36.994 21.857C37.191 21.663 37.194 21.347 37 21.15L20.154 4.608C19.957 4.415 19.955 4.098 20.148 3.901C20.15 3.899 20.152 3.897 20.154 3.895Z" fill="#FFFFFF"></path>
+                                        <path class="three" d="M0.154 3.895L3.976 0.139C4.171-0.052 4.483-0.052 4.677 0.139L25.692 20.785C26.086 21.172 26.091 21.805 25.704 22.199L4.677 42.861C4.483 43.052 4.171 43.052 3.976 42.861L0.154 39.107C-0.042 38.913 -0.045 38.597 0.148 38.4L16.994 21.857C17.191 21.663 17.194 21.347 17 21.15L0.154 4.608C-0.043 4.415 -0.045 4.098 0.148 3.901C0.15 3.899 0.152 3.897 0.154 3.895Z" fill="#FFFFFF"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                        </a>
+                    </li>
+                
+                    
                 </ul>
+                
             </div>
         </div>
     </nav>
@@ -29,7 +46,20 @@
         <div class="container">
             <h1>Welcome to EduLearn</h1>
             <p class="lead">Your ultimate platform for seamless online education</p>
-            <a href="/signup" class="btn btn-light btn-lg">Get Started</a>
+            <!-- From Uiverse.io by adamgiebl --> 
+            <div class="d-flex justify-content-center">
+                <a href="{{ url_for('login') }}" class="cssbuttons-io-button">
+                    Get started
+                    <div class="icon">
+                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+                        
+
         </div>
     </header>
     
