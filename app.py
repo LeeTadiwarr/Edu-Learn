@@ -120,6 +120,7 @@ class Submission(Base):
     submitted_on = Column(Date, nullable=False)
     file_path = Column(String(255), nullable=True)
     grade = Column(String(10), nullable=True)  # New column for grading
+    feedback = Column(String(500), nullable=True)
     assignment = relationship("Assignment")
     student = relationship("User")
 
@@ -136,6 +137,47 @@ def home():
 from datetime import datetime, time
 
 
+@app.route('/instructor_grades', methods=['GET', 'POST'])
+def instructor_grades():
+    user = get_current_user()
+    if not user or user.role != 'instructor':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+    
+    db_session = SessionLocal()
+    
+    if request.method == 'POST':
+        submission_id = request.form.get('submission_id')
+        grade = request.form.get('grade')
+        feedback = request.form.get('feedback')
+        
+        if not submission_id or not grade:
+            flash('All fields are required.', 'danger')
+            return redirect(url_for('instructor_grades'))
+        
+        submission = db_session.query(Submission).filter_by(id=submission_id).first()
+        
+        if submission:
+            submission.grade = grade
+            submission.feedback = feedback  # Save feedback
+            db_session.commit()
+            flash('Grade and feedback saved successfully!', 'success')
+        else:
+            flash('Submission not found.', 'danger')
+    
+    submissions = (
+        db_session.query(Submission)
+        .join(Assignment, Submission.assignment_id == Assignment.id)
+        .join(User, Submission.student_id == User.id)
+        .join(Class, Assignment.class_id == Class.id)
+        .filter(Class.instructor_id == user.id)
+        .options(joinedload(Submission.assignment), joinedload(Submission.student))
+        .all()
+    )
+    
+    db_session.close()
+    
+    return render_template('instructor_grades.html', user=user, submissions=submissions)
 @app.route('/instructor-notes', methods=['GET', 'POST'])
 def instructor_notes():
     user = get_current_user()
@@ -278,6 +320,29 @@ def delete_note(note_id):
     
     db_session.close()
     return redirect(url_for('instructor_notes'))
+
+
+@app.route('/student_notes')
+def student_notes():
+    user = get_current_user()
+    if not user or user.role != 'student':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+    
+    db_session = SessionLocal()
+    
+    student_notes = (
+        db_session.query(InstructorNote)
+        .join(Class, InstructorNote.class_id == Class.id)
+        .join(Enrollment, Enrollment.class_id == Class.id)
+        .filter(Enrollment.student_id == user.id)
+        .options(joinedload(InstructorNote.classroom))
+        .all()
+    )
+    
+    db_session.close()
+    
+    return render_template('student-notes.html', user=user, student_notes=student_notes)
 
 @app.route('/join_course', methods=['POST'])
 def join_course():
@@ -428,9 +493,6 @@ def instructor_assignments():
     
     return render_template('instructor-assignments.html', user=user, submitted_assignments=submitted_assignments,assignments_list=assignments_list, instructor_classes=instructor_classes)
 
-@app.route('/instructor-grades')
-def instructor_grades():
-    return render_template('instructor-grades.html')
 
 @app.route('/announcements')
 def announcements():
@@ -753,7 +815,7 @@ def login():
                 return redirect(url_for('instructor_dashboard'))
         else:
             flash('Invalid credentials, please try again.', 'danger')
-    return render_template('login-register.html')
+    return render_template('signup_login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -783,9 +845,29 @@ def signup():
             flash('Email already registered!', 'danger')
         finally:
             db_session.close()
-    return render_template('login-register.html')
+    return render_template('signup_login.html')
 
 
+@app.route('/grades')
+def grades():
+    user = get_current_user()
+    if not user or user.role != 'student':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+    
+    db_session = SessionLocal()
+    
+    graded_submissions = (
+        db_session.query(Submission)
+        .join(Assignment, Submission.assignment_id == Assignment.id)
+        .filter(Submission.student_id == user.id, Submission.grade != None)
+        .options(joinedload(Submission.assignment))
+        .all()
+    )
+    
+    db_session.close()
+    
+    return render_template('grades.html', user=user, graded_submissions=graded_submissions)
 
 
 @app.route('/courses')
@@ -832,11 +914,6 @@ def assignments():
     db_session.close()
     
     return render_template('assignments.html', user=user, assignments_list=assignments_list)
-
-
-@app.route('/grades')
-def grades():
-    return render_template('grades.html')
 
 @app.route('/calendar')
 def calendar():

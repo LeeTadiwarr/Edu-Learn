@@ -1,1 +1,1 @@
-ALTER TABLE assignments_new RENAME TO assignments;
+ALTER TABLE submissions ADD COLUMN feedback TEXT;
